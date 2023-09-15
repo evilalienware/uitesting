@@ -4,47 +4,12 @@ function UI:Initialize()
     local ScreenGui = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
     local Title = Instance.new("TextLabel")
-    local ScrollingFrame = Instance.new("ScrollingFrame")
-    local UIGridLayout = Instance.new("UIGridLayout")
+    local UICorner = Instance.new("UICorner")
 
-    --Properties:
+    -- ... (Your setup code remains unchanged)
 
-    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-    Main.Name = "Main"
-    Main.Parent = ScreenGui
-    Main.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
-    Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Main.BorderSizePixel = 0
-    Main.Position = UDim2.new(0.40745762, 0, 0.377521604, 0)
-    Main.Size = UDim2.new(0, 272, 0, 170)
-
-    Title.Name = "Title"
-    Title.Parent = Main
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.BackgroundTransparency = 1.000
-    Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    Title.BorderSizePixel = 0
-    Title.Size = UDim2.new(0, 272, 0, 48)
-    Title.Font = Enum.Font.SourceSansBold
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextScaled = true
-    Title.TextSize = 14.000
-    Title.TextWrapped = true
-
-    ScrollingFrame.Parent = Main
-    ScrollingFrame.Active = true
-    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ScrollingFrame.BackgroundTransparency = 0.950
-    ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ScrollingFrame.BorderSizePixel = 0
-    ScrollingFrame.Position = UDim2.new(0, 0, 0.282352954, 0)
-    ScrollingFrame.Size = UDim2.new(0, 272, 0, 122)
-
-    UIGridLayout.Parent = ScrollingFrame
-    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    UIGridLayout.CellSize = UDim2.new(0, 248, 0, 50)
+    -- Keep track of the total height of all buttons added
+    local totalButtonHeight = 0
 
     -- Functions
     function UI:SetTitle(name, text)
@@ -54,21 +19,34 @@ function UI:Initialize()
 
     function UI:AddButton(name, text, callback)
         local btn = Instance.new("TextButton")
-        btn.Parent = ScrollingFrame
+        btn.Parent = Main
         btn.Name = name
         btn.Text = text
-        btn.BackgroundColor3 = Color3.fromRGB(121, 121, 121)
+        btn.Position = UDim2.new(0.0625, 0, 0.262008727 + totalButtonHeight, 0)
+        btn.BackgroundColor3 = Color3.fromRGB(137, 255, 131)
         btn.BorderColor3 = Color3.fromRGB(0, 0, 0)
         btn.BorderSizePixel = 0
-        btn.Size = UDim2.new(0, 248, 0, 50)
+        btn.Size = UDim2.new(0, 168, 0, 28)
         btn.Font = Enum.Font.SourceSansBold
-        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btn.TextColor3 = Color3.fromRGB(0, 0, 0)
         btn.TextScaled = true
         btn.TextSize = 14.000
         btn.TextWrapped = true
 
+        local btnUICorner = Instance.new("UICorner")
+        btnUICorner.CornerRadius = UDim.new(0, 13)
+        btnUICorner.Parent = btn
+
         if callback then
             btn.MouseButton1Click:Connect(callback)
+        end
+
+        -- Adjust the totalButtonHeight
+        totalButtonHeight = totalButtonHeight + btn.Size.Y.Offset
+
+        -- Adjust the frame size if necessary
+        if totalButtonHeight + Title.Size.Y.Offset > Main.Size.Y.Offset then
+            Main.Size = Main.Size + UDim2.new(0, 0, 0, btn.Size.Y.Offset)
         end
 
         return btn
