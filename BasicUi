@@ -6,7 +6,32 @@ function UI:Initialize()
     local Title = Instance.new("TextLabel")
     local UICorner = Instance.new("UICorner")
 
-    -- ... (Your setup code remains unchanged)
+    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    Main.Name = "Main"
+    Main.Parent = ScreenGui
+    Main.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+    Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Main.BorderSizePixel = 0
+    Main.Position = UDim2.new(0.40745762, 0, 0.377521604, 0)
+    Main.Size = UDim2.new(0, 192, 0, 229)
+
+    Title.Name = "Title"
+    Title.Parent = Main
+    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundTransparency = 1.000
+    Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Title.BorderSizePixel = 0
+    Title.Size = UDim2.new(0, 192, 0, 54)
+    Title.Font = Enum.Font.SourceSansBold
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextScaled = true
+    Title.TextSize = 14.000
+    Title.TextWrapped = true
+
+    UICorner.CornerRadius = UDim.new(0, 22)
+    UICorner.Parent = Main
 
     -- Keep track of the total height of all buttons added
     local totalButtonHeight = 0
@@ -22,7 +47,7 @@ function UI:Initialize()
         btn.Parent = Main
         btn.Name = name
         btn.Text = text
-        btn.Position = UDim2.new(0.0625, 0, 0.262008727 + totalButtonHeight, 0)
+        btn.Position = UDim2.new(0.0625, 0, 0.282352954 + totalButtonHeight, 0)
         btn.BackgroundColor3 = Color3.fromRGB(137, 255, 131)
         btn.BorderColor3 = Color3.fromRGB(0, 0, 0)
         btn.BorderSizePixel = 0
