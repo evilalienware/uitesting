@@ -63,7 +63,7 @@ function Library:Init(title)
     return self
 end
 
-function Library:AddButton(text)
+function Library:AddButton(options)
     local TextButton = Instance.new("TextButton")
 
     TextButton.Parent = self.Holder
@@ -72,13 +72,42 @@ function Library:AddButton(text)
     TextButton.BorderSizePixel = 0
     TextButton.Size = UDim2.new(0, 211, 0, 50)
     TextButton.Font = Enum.Font.SourceSansBold
-    TextButton.Text = text or "Button"
+    TextButton.Text = options.Name or "Button"
     TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
     TextButton.TextScaled = true
     TextButton.TextSize = 14.000
     TextButton.TextWrapped = true
 
+    -- If a callback is provided, bind it to the button's MouseButton1Click event
+    if options.Callback then
+        TextButton.MouseButton1Click:Connect(options.Callback)
+    end
+
     return TextButton
+end
+
+function Library:AddTextBox(options)
+    local TextBox = Instance.new("TextBox")
+
+    TextBox.Parent = self.Holder
+    TextBox.BackgroundColor3 = Color3.fromRGB(109, 109, 109)
+    TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextBox.BorderSizePixel = 0
+    TextBox.Size = UDim2.new(0, 211, 0, 50)
+    TextBox.Font = Enum.Font.SourceSansBold
+    TextBox.PlaceholderText = options.Name or "..."
+    TextBox.Text = ""
+    TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextBox.TextScaled = true
+    TextBox.TextSize = 14.000
+    TextBox.TextWrapped = true
+
+    -- If a callback is provided, bind it to the TextBox's Changed event (or any other event you prefer)
+    if options.Callback then
+        TextBox.Changed:Connect(options.Callback)
+    end
+
+    return TextBox
 end
 
 function Library:AddTextLabel(text)
@@ -97,25 +126,6 @@ function Library:AddTextLabel(text)
     TextLabel.TextWrapped = true
 
     return TextLabel
-end
-
-function Library:AddTextBox(placeholder)
-    local TextBox = Instance.new("TextBox")
-
-    TextBox.Parent = self.Holder
-    TextBox.BackgroundColor3 = Color3.fromRGB(109, 109, 109)
-    TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    TextBox.BorderSizePixel = 0
-    TextBox.Size = UDim2.new(0, 211, 0, 50)
-    TextBox.Font = Enum.Font.SourceSansBold
-    TextBox.PlaceholderText = placeholder or "..."
-    TextBox.Text = ""
-    TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextBox.TextScaled = true
-    TextBox.TextSize = 14.000
-    TextBox.TextWrapped = true
-
-    return TextBox
 end
 
 return Library
